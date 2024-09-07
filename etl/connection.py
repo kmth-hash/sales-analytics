@@ -39,17 +39,11 @@ def snowOptions():
     return  op
 
 def snowConnect():
-    op = {
-        "account": os.getenv("SNOW_APP_ID"),
-        "user": os.getenv("SNOW_USER"),
-        "password": os.getenv("SNOW_PASS"),
-        "database": os.getenv("SNOW_SOURCE_DB"),
-        "schema": os.getenv("SNOW_SRC_SCHEMA"),
-        "warehouse": os.getenv("SNOW_WAREHOUSE"),
-    }
+    op = snowOptions()
     conn = sc.connect(
         **op
     )    
+    print('Snowflake connection established : ')
     return conn.cursor()
 
 
