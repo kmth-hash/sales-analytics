@@ -1,0 +1,6 @@
+*.env
+dont_push.py
+test.py
+
+*.pyc
+dummy.jar
