@@ -1,0 +1,1 @@
+select _id , sum(items_price*items_qty) as total_price from salesdata group by _id ;  
