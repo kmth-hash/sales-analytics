@@ -1,0 +1,1 @@
+select age_group , count(*) as total from age_group_view  group by 1 order by 1; 
