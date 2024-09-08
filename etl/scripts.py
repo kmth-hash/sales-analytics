@@ -17,6 +17,7 @@ def view_sf_data(description,resultSet) :
 
 def fetchSQL(sql_file_name) : 
     snowFilePath = os.getenv('SNOW_SQL_PATH')
+    sql_file_name=os.getenv(sql_file_name)
     with open(f'{snowFilePath}/{sql_file_name}.sql','r') as fPtr : 
         query = ''
         for line in fPtr.read() : 
@@ -43,17 +44,17 @@ def validateQuery(query:str) :
         end;
         $$
         """
-    print(query)
+    # print(query)
     return query
 
 def runSnowQuery(snowConn , query):
-    print('Running query : ')
+    # print('Running query : ')
     res = snowConn.execute(query)   
     res = res.fetchall()
     return res 
 
 def initializeSnowDB(snowConn): 
-    query = fetchSQL(os.getenv('DB_SRC_QUERY'))
+    query = fetchSQL('DB_SRC_QUERY')
     # print(query)
     query = validateQuery(query)
     runSnowQuery(snowConn , query )

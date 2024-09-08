@@ -2,6 +2,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import col , from_unixtime
 from connection import * 
 from scripts import * 
+from transformations import * 
 import os 
 from dotenv import load_dotenv
 from pyspark.sql.types import DateType
@@ -53,6 +54,7 @@ def starter_method():
     snowConn = snowConnect()
     initializeSnowDB(snowConn)
     data_loading(spark , sfOptions)
+    processed_data(spark,sfOptions,snowConn)
 
 if __name__ == "__main__":
     try : 

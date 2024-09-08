@@ -14,3 +14,7 @@ case
 end as age_group
 from userdata;
 
+-- top 10 cutomers with highest sales
+
+create view if not exists top10customers as select _id , sum(items_price*items_qty) as total_sales from salesdata group by _id order by 2 DESC limit 10 ;
+
