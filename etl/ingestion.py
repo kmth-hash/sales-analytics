@@ -50,8 +50,14 @@ def starter_method():
     print('Starting Process : ')
     spark = sparkInit()
     sfOptions = getSparkSFOptions()
+    snowConn = snowConnect()
+    initializeSnowDB(snowConn)
     data_loading(spark , sfOptions)
 
 if __name__ == "__main__":
-    load_dotenv()
-    starter_method()
+    try : 
+        load_dotenv()
+        starter_method()
+    except Exception as ex : 
+        print('Error in execution : \n Logs-----> \n')
+        print(ex)

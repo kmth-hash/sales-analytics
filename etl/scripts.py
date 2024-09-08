@@ -21,7 +21,7 @@ def fetchSQL(sql_file_name) :
         query = ''
         for line in fPtr.read() : 
             query += line 
-        print(query)
+        # print(query)
     return query 
 
 
@@ -33,8 +33,29 @@ def loadDataIntoTbl(spark , sfOptions, data , tbl) :
         .save()
     print(f'{tbl} data populated : ')
 
+def validateQuery(query:str) : 
+    query.replace('"',"'")
+    if 'execute immediate $$' not in query : 
+        query = f"""
+        execute immediate $$     
+        begin
+        {query}
+        end;
+        $$
+        """
+    print(query)
+    return query
+
 def runSnowQuery(snowConn , query):
     print('Running query : ')
     res = snowConn.execute(query)   
     res = res.fetchall()
     return res 
+
+def initializeSnowDB(snowConn): 
+    query = fetchSQL(os.getenv('DB_SRC_QUERY'))
+    # print(query)
+    query = validateQuery(query)
+    runSnowQuery(snowConn , query )
+    print('Database init complete : ')
+    
